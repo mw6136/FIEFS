@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "FIEFS"
+description = 'Finite volume solver to investigate flow instabilities'
+version = "1.0.1"
+readme = "README.md"
+requires-python = ">=3.9, <3.11"
+authors = [
+  { name = "Michael D. Walker", email = "michael.walker@princeton.edu" },
+  { name = "Philip Satterthwaite", email = "ps1639@princeton.edu" },
+]
+
+dependencies = [
+  "numpy",
+  "matplotlib",
+  "mypy",
+  "pip",
+  "pre-commit>=2.20.0",
+  "myst-parser",
+  "numba",
+  "h5py"
+]
+
+[project.optional-dependencies]
+test = [
+   "pytest>=7.0",
+   "nox>=2022.8.7",
+   "numba",
+]
+docs = [
+    "furo",  # Theme
+    "myst_parser >=0.13",  # Markdown
+    "sphinx >=4.0",
+    "sphinx_copybutton",  # Easy code copy button
+    "h5py",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
