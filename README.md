@@ -1,6 +1,7 @@
 # FIEFS - **F**low **I**nstability **E**ulerian **F**low **S**olver
 ### A Python simulation code with finite volume compressible inviscid fluid solver
 
+![FIEFS-transformed](https://github.com/mw6136/FIEFS/assets/144184708/551dec1f-3358-4db5-9467-bd22e2f75cd4)
 
 ### Implemented problems
 - Kelvin-Helmholtz Instability
