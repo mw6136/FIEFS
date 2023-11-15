@@ -7,7 +7,7 @@ name = "FIEFS"
 description = 'Finite volume solver to investigate flow instabilities'
 version = "1.0.1"
 readme = "README.md"
-requires-python = ">=3.9, <3.11"
+requires-python = ">=3.8"
 authors = [
   { name = "Michael D. Walker", email = "michael.walker@princeton.edu" },
   { name = "Philip Satterthwaite", email = "ps1639@princeton.edu" },
@@ -41,4 +41,13 @@ docs = [
 [tool.pytest.ini_options]
 pythonpath = [
   "src"
+]
+
+[tool.ruff]
+select = [
+  "E", "F", "W", # flake8
+  "B",           # flake8-bugbear
+  "I",           # isort
+  "RUF",         # Ruff-specific
+  "UP",          # pyupgrade
 ]

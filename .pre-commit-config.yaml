@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: "v4.3.0"
+    rev: "v4.5.0"
     hooks:
       - id: check-added-large-files
       - id: check-yaml
@@ -10,7 +10,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/psf/black
-    rev: "22.10.0"
+    rev: "23.9.1"
     hooks:
       - id: black
 
@@ -25,3 +25,10 @@ repos:
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
+
+# The above flake8, and pyupgrade are redundant with ruff
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: "v0.0.292"
+    hooks:
+      - id: ruff
+        args: ["--fix", "--show-fixes"]
