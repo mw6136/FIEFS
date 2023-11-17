@@ -1,13 +1,18 @@
 import nox
 
 
-@nox.session(python="3.11")
+@nox.session(python=["3.9", "3.10", "3.11"])
 def tests(session: nox.Session) -> None:
     """
     Run the unit and regular tests.
     """
     session.install(".[test]")
     session.run("pytest")
+
+@nox.session(python="3.11")
+def lint(session):
+    session.install("flake8")
+    session.run("flake8", "src/")
 
 
 @nox.session(python="3.11")
