@@ -11,6 +11,9 @@ def tests(session: nox.Session) -> None:
 
 @nox.session(python="3.11")
 def lint(session):
+    """
+    Run the linter.
+    """
     session.install("flake8")
     session.run("flake8", "src/")
 

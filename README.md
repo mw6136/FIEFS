@@ -41,3 +41,11 @@ The solver implemented in `FIEFS` is a MUSCL-Hancock scheme as described in [1].
 
 [1] Toro, E. F. (2011). Riemann solvers and Numerical Methods for fluid dynamics: A practical introduction. Springer.
 [2] Boerchers, J., Rzepka, S., and Fush, T. (2022). PSYCHo-I - Python Simulations Yielding Hydrodynamic Instabilities. Github repository: `https://github.com/johnboerchers/psycho-i.`
+
+##List of original files (created by Michael and Philip)
+noxfile.py
+pyproject.toml
+.pre-commit-config.yaml
+
+##List of modified files (and modifications)
+README.md
