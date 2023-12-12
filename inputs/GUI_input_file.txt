@@ -1,0 +1,56 @@
+# Input file for the Kelvin-Helmholtz instability
+
+# Grid information
+nx1   = 3
+nx2   = 1
+nvar  = 5
+ng    = 0
+
+x1min = -1
+x1max = -5
+x2min = 0
+x2max = 0
+
+# Parameters for the flow
+rho0  = 1.0
+rho1  = 2.0
+
+p0    = 1.0
+p1    = 0
+
+u0    = 0
+u1    = 0
+
+pert_amp = 0.1
+
+# Time info
+CFL   = 05.
+tmax  = 10.0
+
+gamma = 1.4
+
+# Boundary conditions
+left_bc   = periodic
+right_bc  = periodic
+top_bc    = periodic
+bottom_bc = periodic
+
+# Desired variables to output inputted as list, options include: x-velocity, y-velocity, density, pressure
+# Note that time is always an output variable
+output_variables = ["x-velocity", "y-velocity", "density", "pressure"]
+
+# Desired output frequency (number of timesteps before data is saved) inputted as a float
+output_frequency = 50
+
+# Desired data file type inputted as a string, options include: txt, csv, hdf5
+data_file_type = hdf5
+
+#  ----------------------------------------- Plotting -----------------------------------------------
+# Pick the variables to be plotted and do not put a space between them in 'variables to plot,' 'labels,' or
+# 'cmaps.' Put the desired labels in latex form and enter the corresponding desired cmaps in the same order.
+# Style mode will turn everything off and fill the entire figure with the image (use with only one variable)
+variables_to_plot = [rho,u,v,et]
+labels = [\rho,u,v,e_t]
+cmaps = [jet,ocean,ocean,hot]
+stability_name = Kelvin-Helmholtz Instability
+style_mode = False
