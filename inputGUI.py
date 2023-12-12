@@ -1,86 +1,45 @@
-
-
-#GUI capabilities:
-'''
-  Grid Information:
-  - 
-
-  Flow Parameters:
-  - rho1
-  - rho2
-  - p0
-  - p1
-  - u0
-  - u1
-  - per_am
-
-  Time info:
-  - CFL
-  - tmax
-  - gamma
-
-  Boundary Conditions:
-  - left_bc
-  - right_bc
-  - top_bc
-  - bottom_bc
-
-  Output Options:
-  - Output Variables: x-velocity, y-velocity, density, pressure
-  - Output Frequency: 
-  - Data File Type: txt, csv, hdf5
-
-  Plotting:
-  - variables to plot: rho, u, v, et
-  - labels: rhow, u, v, e_t
-  - color maps: jet, ocean, ocean, hot
-  - stability name: Kelvin-Helmholtz Instability
-  - style mode: True/False
-'''
 import tkinter as tk
 from tkinter import ttk
-from GUI.geometry_tab import create_geometry_tab
-from GUI.flow_parameters_tab import create_flow_parameters_tab
-from GUI.bcs_tab import create_bcs_tab
-from GUI.time_parameters_tab import create_time_parameters_tab
-from GUI.outputs_tab import create_outputs_tab
-from GUI.run_tab import create_run_tab
-from GUI.plot_tab import create_plot_tab
+from GUI.GUI_tabs import GeometryTab, FlowParametersTab, TimeParametersTab, BoundaryConditionsTab
 
+class FlowSolverApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Flow Instability Eulerian Flow Solver (FIEFS)")
+        self.geometry("800x600")
+        self.notebook = ttk.Notebook(self)  # Make notebook an instance variable
+        self.create_tabs()
 
-def on_tab_click(event):
-    selected_tab = notebook.index(notebook.select())
-    print(f"Tab {selected_tab + 1} clicked!")
+    def create_tabs(self):
+        # Create tabs using instances of classes
+        geometry_tab = GeometryTab(self.notebook)
+        flow_parameters_tab = FlowParametersTab(self.notebook)
+        time_parameters_tab = TimeParametersTab(self.notebook)
+        boundary_conditions_tab = BoundaryConditionsTab(self.notebook)
 
-# Create the main window
-root = tk.Tk()
-root.title("Flow Instability Eulerian Flow Solver (FIEFS)")
+        # Add tabs to the notebook
+        self.notebook.add(geometry_tab, text="Geometry")
+        self.notebook.add(flow_parameters_tab, text="Flow Parameters")
+        self.notebook.add(time_parameters_tab, text="Time Parameters")
+        self.notebook.add(boundary_conditions_tab, text="Boundary Conditions")
 
-# Set the initial size of the window (width x height)
-root.geometry("800x600")
+        # Bind the tab click event to the on_tab_click function
+        self.notebook.bind("<ButtonRelease-1>", self.on_tab_click)
 
-# Create a notebook (tabbed container)
-notebook = ttk.Notebook(root)
+        # Pack the notebook into the main window
+        self.notebook.grid(row=0, column=0, sticky="nsew")
 
-# Create tabs using functions from other files
-geometry_tab = create_geometry_tab(notebook)
-flow_parameters_tab = create_flow_parameters_tab(notebook)
-bcs_tab = create_bcs_tab(notebook)
-time_parameters_tab = create_time_parameters_tab(notebook)
-outputs_tab = create_outputs_tab(notebook)
-run_tab = create_run_tab(notebook)
-plot_tab = create_plot_tab(notebook)
+        # Configure grid weights to make the frames expand with the window
+        for i in range(6):
+            self.grid_rowconfigure(0, weight=1)
+            self.grid_columnconfigure(0, weight=1)
 
-# Bind the tab click event to the on_tab_click function
-notebook.bind("<ButtonRelease-1>", on_tab_click)
+    def on_tab_click(self, event):
+        try:
+            selected_tab = self.notebook.index("current")
+        except tk.TclError:
+            print("Error: Invalid tab")
 
-# Pack the notebook into the main window
-notebook.grid(row=0, column=0, sticky="nsew")
-
-# Configure grid weights to make the frames expand with the window
-for i in range(6):
-    root.grid_rowconfigure(0, weight=1)
-    root.grid_columnconfigure(0, weight=1)
-
-# Start the main event loop
-root.mainloop()
+if __name__ == "__main__":
+    app = FlowSolverApp()
+    app.mainloop()

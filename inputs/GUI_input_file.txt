@@ -1,21 +1,21 @@
 # Input file for the Kelvin-Helmholtz instability
 
 # Grid information
-nx1   = 3
-nx2   = 1
-nvar  = 5
+nx1   = 0
+nx2   = 0
+nvar  = 0
 ng    = 0
 
-x1min = -1
-x1max = -5
+x1min = 0
+x1max = 0
 x2min = 0
 x2max = 0
 
 # Parameters for the flow
 rho0  = 1.0
-rho1  = 2.0
+rho1  = 00
 
-p0    = 1.0
+p0    = 0
 p1    = 0
 
 u0    = 0
@@ -24,16 +24,16 @@ u1    = 0
 pert_amp = 0.1
 
 # Time info
-CFL   = 05.
-tmax  = 10.0
+CFL   = 0
+tmax  = 0
 
-gamma = 1.4
+gamma = 0
 
 # Boundary conditions
-left_bc   = periodic
-right_bc  = periodic
-top_bc    = periodic
-bottom_bc = periodic
+left_bc   = asdf
+right_bc  = 0
+top_bc    = 
+bottom_bc = adsf
 
 # Desired variables to output inputted as list, options include: x-velocity, y-velocity, density, pressure
 # Note that time is always an output variable
