@@ -8,9 +8,7 @@ import sys
 
 import numpy as np
 
-from src.input import FIEFS_Input
-
-sys.path.append("..")
+from ..src.input import FIEFS_Input
 
 
 class FIEFS_Array:

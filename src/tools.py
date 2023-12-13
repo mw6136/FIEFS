@@ -3,10 +3,9 @@ import sys
 import numpy as np
 from numba import njit
 
-from src.eos import p_EOS
-from src.mesh import FIEFS_Array
+from ..src.eos import p_EOS
+from ..src.mesh import FIEFS_Array
 
-sys.path.append("..")
 
 
 @njit()
