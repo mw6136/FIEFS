@@ -9,7 +9,10 @@ import sys
 
 import numpy as np
 
-sys.path.append("..")
+current_script_path = os.path.abspath(__file__)
+parent_directory = os.path.dirname(os.path.dirname(current_script_path))
+sys.path.append(parent_directory)
+
 from src.input import FIEFS_Input
 
 

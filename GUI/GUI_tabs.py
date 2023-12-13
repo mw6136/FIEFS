@@ -1,8 +1,10 @@
 import os
+import sys
 import tkinter as tk
 from tkinter import ttk
-import sys; sys.path.append("..")
-from plotting.plotter import plotter
+
+sys.path.append("..")
+
 
 class BaseTab(ttk.Frame):
     def __init__(self, notebook, tab_title, variables_and_lines):

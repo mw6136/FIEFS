@@ -1,7 +1,11 @@
-import sys; sys.path.append("..")
+import sys
+
+current_script_path = os.path.abspath(__file__)
+parent_directory = os.path.dirname(os.path.dirname(current_script_path))
+sys.path.append(parent_directory)
+
 
 import numpy as np
-
 from numba import njit
 
 from src.eos import p_EOS
