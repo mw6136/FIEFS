@@ -2,7 +2,16 @@ import os
 print("Current Working Directory:", os.getcwd())
 import sys
 
-sys.path.append("..")
+# Get the absolute path of the current script
+current_script_path = os.path.abspath(__file__)
+
+# Get the parent directory by going up one level
+parent_directory = os.path.dirname(os.path.dirname(current_script_path))
+
+# Add the parent directory to sys.path
+sys.path.append(parent_directory)
+
+# Now you can import modules from the parent directory
 
 import numpy as np
 from numpy import genfromtxt
