@@ -4,7 +4,7 @@ import sys
 import os
 
 sys.path.append("..")
-from src.mesh import PsychoArray
+from src.mesh import FIEFS_Array
 
 
 class Plotter:
@@ -55,7 +55,7 @@ class Plotter:
 
     """
 
-    def __init__(self, pmesh: PsychoArray):
+    def __init__(self, pmesh: FIEFS_Array):
 
         # Get information from the mesh needed needed for plotting
         self.ng = pmesh.ng

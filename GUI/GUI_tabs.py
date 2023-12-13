@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import os
+import subprocess
 
 class BaseTab(ttk.Frame):
     def __init__(self, notebook, tab_title, variables_and_lines):
@@ -30,16 +31,12 @@ class BaseTab(ttk.Frame):
     def value_changed(self, event, line_number, char_number, entry, error_label):
         new_value = entry.get()
 
-        # Check if the entered value is a valid float
-
-        
-        if not self.check_type(new_value):
-            error_label.config(text=f"\"{new_value}\" is not a valid float.", foreground="red", font=("Arial", 12))
+        if not self.check_type(new_value, error_label):
             return
+        self.write_to_file(event, line_number, char_number, new_value, error_label)
         
-        error_label.config(text="✓", foreground="green", font=("Arial", 16))
-
-        file_path = os.path.abspath(os.path.join("inputs", "GUI_input_file.txt"))
+    def write_to_file(self, event, line_number, char_number, new_value, error_label):
+        file_path = os.path.abspath(os.path.join("inputs", "inputs.IN"))
 
         # Read existing lines from the file
         with open(file_path, 'r') as file:
@@ -57,12 +54,14 @@ class BaseTab(ttk.Frame):
                     file.writelines(lines)
 
     @staticmethod
-    def check_type(value):
+    def check_type(value, error_label):
         value_type = float
         try:
             value_type(value)
+            error_label.config(text="✓", foreground="green", font=("Arial", 16))
             return True
         except ValueError:
+            error_label.config(text=f"\"{value}\" is not a valid float.", foreground="red", font=("Arial", 12))
             return False
         
 
@@ -92,108 +91,44 @@ class BoundaryConditionsTab(BaseTab):
         variables_and_lines = {"Left BC": [32, 12], "Right BC": [33, 12], "Top BC": [34, 12], "Bottom BC": [35, 12]}
         super().__init__(notebook, "Boundary Conditions", variables_and_lines)
 
-    def check_type(self, value):
-        return isinstance(value, str)
-
-'''
-class OutputOptionsTab(ttk.Frame):
+    def check_type(self, value, error_label):
+        valid_values = {"transmissive", "periodic", "wall"}
+        if value.lower() in valid_values:
+            error_label.config(text="✓", foreground="green", font=("Arial", 16))
+            return True
+        else:
+            error_label.config(text=f"Entry must be 'transmissive', 'periodic', or 'wall'", foreground="red", font=("Arial", 12))
+            return False
+        
+class RunTab(ttk.Frame):
     def __init__(self, notebook):
         super().__init__(notebook)
-        self.width = 300
-        self.height = 200
-        self.variables_and_lines = {"Output Variables": [40, 19], "Output Frequency": [44, 19], "Data File Type": [46, 17]}
-        self.create_widgets("Output Options")
+        self.create_widgets()
 
-        # Store the previous state of output variables
-        self.prev_output_vars = [False, False, False, False]
+    def create_widgets(self):
+        self.output_text = tk.Text(self, height=10, width=80, wrap=tk.WORD)
+        self.output_text.pack(pady=10)
 
-        # Define error_label as an attribute
-        self.error_label = None
+        run_button = ttk.Button(self, text="RUN", command=self.run_command)
+        run_button.pack(pady=10)
 
-    def create_widgets(self, tab_title):
-        self.grid(row=0, column=0, sticky="nsew")
-        label = ttk.Label(self, text=f"{tab_title}:")
-        label.grid(row=0, column=0, columnspan=3, pady=10)
+    def run_command(self):
+        header = "Copy the following lines of code into any Linux command prompt:\n"
+        command1 = 'conda create -n environment python=3.9 anaconda'
+        command2 = 'python FIEFS.py -p inputs'
 
-        options = ["x-velocity", "y-velocity", "density", "pressure"]
+        # Clear previous content
+        self.output_text.delete("1.0", tk.END)
 
-        for variable, index in self.variables_and_lines.items():
-            label = ttk.Label(self, text=f"{variable}:")
-            label.grid(row=index[0], column=0, padx=10, pady=10, sticky="w")
+        # Insert the header and indented commands into the Text widget
+        self.output_text.insert(tk.END, header)
+        self.output_text.insert(tk.END, f"    {command1}\n")
+        self.output_text.insert(tk.END, f"    {command2}\n")
 
-            # Check if the current variable is "Output Variables"
-            if variable == "Output Variables":
-                # Create a list of BooleanVar for each Checkbutton
-                var_list = [tk.BooleanVar(value=False) for _ in range(4)]  # Assuming 4 options for output variables
+        # Enable the Text widget for copying
+        self.output_text.config(state=tk.NORMAL)
 
-                # Create Checkbuttons for multiple options
-                checkboxes = []
-                for i, option in enumerate(options):
-                    checkbox = ttk.Checkbutton(self, text=option, variable=var_list[i], onvalue=True, offvalue=False, command=lambda i=i: self.on_output_var_change(i))
-                    checkbox.grid(row=index[0] + i, column=1, padx=10, pady=5, sticky="w")
-                    checkboxes.append(checkbox)
-
-            elif variable == "Output Frequency":
-                entry = ttk.Entry(self)
-                entry.grid(row=index[0], column=1, padx=10, pady=10)
-                entry.bind("<FocusOut>", lambda event: self.on_output_frequency_change(event, entry))  # Pass the entry widget
-
-                # Define error_label as an attribute
-                self.error_label = ttk.Label(self, text="", foreground="red")
-                self.error_label.grid(row=index[0], column=2, padx=10, pady=10)
-
-            elif variable == "Data File Type":
-                # Create a StringVar to store the selected option
-                data_file_type_var = tk.StringVar()
-
-                # Create a Combobox for the dropdown menu
-                file_type_combobox = ttk.Combobox(self, textvariable=data_file_type_var, values=["txt", "csv", "hdf5"])
-                file_type_combobox.grid(row=index[0], column=1, padx=10, pady=10, sticky="w")
-                file_type_combobox.set("txt")  # Set the default value
-                file_type_combobox.bind("<<ComboboxSelected>>", lambda event: self.on_widget_change())
-
-    def on_output_var_change(self, index):
-        # Update the state of the clicked output variable
-        self.prev_output_vars[index] = not self.prev_output_vars[index]
-
-        # Get the currently checked variables
-        checked_vars = [option for i, option in enumerate(["x-velocity", "y-velocity", "density", "pressure"]) if self.prev_output_vars[i]]
-
-        print("Currently Checked Output Variables:", checked_vars)
-
-    def on_output_frequency_change(self, event, entry):
-        # Get the value of "Output Frequency" entry
-        output_frequency_value = entry.get()
-
-        # Check if the entered value is a valid float
-        if not self.check_type(output_frequency_value):
-            if self.error_label:
-                self.error_label.config(text=f"\"{output_frequency_value}\" is not a valid float.", foreground="red", font=("Arial", 12))
-            return
-
-        # Check if self.error_label is not None before configuring it
-        if self.error_label:
-            self.error_label.config(text="ABC", foreground="red", font=("Arial", 12))
-
-        print("Output Frequency Changed:", output_frequency_value)
-
-    @staticmethod
-    def check_type(value):
-        value_type = float
-        try:
-            value_type(value)
-            return True
-        except ValueError:
-            return False
-
-                
-class PlottingTab(BaseTab):
-    def __init__(self, notebook):
-        variables_and_lines = {"CFL": [40, 8], "tmax": [27, 8], "gamma": [29, 8]}
-        super().__init__(notebook, "Time Parameters", variables_and_lines)
-        '''
-
-
+    
 
 
 

@@ -1,7 +1,7 @@
-from src.input import PsychoInput
-from src.data_saver import PsychoOutput
+from src.input import FIEFS_Input
+from src.data_saver import FIEFS_Output
 from src.pgen import kh
-from src.mesh import PsychoArray, get_interm_array
+from src.mesh import FIEFS_Array, get_interm_array
 from src.reconstruct import get_limited_slopes
 from src.tools import calculate_timestep, get_fluxes_2d
 from src.riemann import solve_riemann
@@ -27,20 +27,20 @@ if __name__ == "__main__":
     input_fname = f"inputs/{problem_name}.in"
 
     # Load input file parameters to be used in simulation setup
-    pin = PsychoInput(input_fname=input_fname)
+    pin = FIEFS_Input(input_fname=input_fname)
     pin.parse_input_file()
 
     # Initialize empty problem mesh
-    pmesh = PsychoArray(pin, np.float64)
+    pmesh = FIEFS_Array(pin, np.float64)
 
-    # Load the correct problem generator
-    if problem_name == "kh":
-        problem_generator = kh.ProblemGenerator
-    else:
-        raise ValueError("Please use an implemented problem type")
+    # Load the correct problem generator (implement if more probelm types are added)#####################
+    #if problem_name == "kh":
+    problem_generator = kh.ProblemGenerator
+    #else:
+    #    raise ValueError("Please use an implemented problem type")
 
     # Initialize data saving preferences
-    pout = PsychoOutput(input_fname=input_fname)
+    pout = FIEFS_Output(input_fname=input_fname)
     pout.data_preferences(pin)
 
     # Initialize the simulation

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from GUI.GUI_tabs import GeometryTab, FlowParametersTab, TimeParametersTab, BoundaryConditionsTab
+from GUI.GUI_tabs import GeometryTab, FlowParametersTab, TimeParametersTab, BoundaryConditionsTab, RunTab
 
 class FlowSolverApp(tk.Tk):
     def __init__(self):
@@ -16,12 +16,14 @@ class FlowSolverApp(tk.Tk):
         flow_parameters_tab = FlowParametersTab(self.notebook)
         time_parameters_tab = TimeParametersTab(self.notebook)
         boundary_conditions_tab = BoundaryConditionsTab(self.notebook)
+        run_tab = RunTab(self.notebook)
 
         # Add tabs to the notebook
         self.notebook.add(geometry_tab, text="Geometry")
         self.notebook.add(flow_parameters_tab, text="Flow Parameters")
         self.notebook.add(time_parameters_tab, text="Time Parameters")
         self.notebook.add(boundary_conditions_tab, text="Boundary Conditions")
+        self.notebook.add(run_tab, text="Run")
 
         # Bind the tab click event to the on_tab_click function
         self.notebook.bind("<ButtonRelease-1>", self.on_tab_click)
@@ -43,3 +45,5 @@ class FlowSolverApp(tk.Tk):
 if __name__ == "__main__":
     app = FlowSolverApp()
     app.mainloop()
+
+
