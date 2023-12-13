@@ -1,30 +1,32 @@
-import sys
-import numpy as np
 import os
+import sys
+
+import numpy as np
 
 sys.path.append("..")
 
+from numpy import genfromtxt
+
+from plotting.plotter import Plotter
+from src.data_saver import FIEFS_Output
+from src.eos import e_EOS, p_EOS
 from src.input import FIEFS_Input
 from src.mesh import FIEFS_Array, get_interm_array
-from src.pgen.sample import sampleProblemGenerator
 from src.pgen.kh import ProblemGenerator
-from src.eos import p_EOS, e_EOS
+from src.pgen.sample import sampleProblemGenerator
 from src.reconstruct import get_limited_slopes
 from src.tools import (
-    get_primitive_variables_1d,
-    get_primitive_variables_2d,
     get_fluxes_1d,
     get_fluxes_2d,
+    get_primitive_variables_1d,
+    get_primitive_variables_2d,
 )
-from src.data_saver import FIEFS_Output
-from plotting.plotter import Plotter
-from numpy import genfromtxt
 
 
 def test_FIEFS_input():
     """Test that the parameter input parsing works with kh"""
 
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
 
     pin.parse_input_file()
 
@@ -53,7 +55,7 @@ def test_FIEFS_input():
 def test_FIEFS_pgen():
     """Tests values or signs of values from the problem generator"""
 
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
 
     pin.parse_input_file()
 
@@ -88,7 +90,7 @@ def test_FIEFS_pgen():
 def test_FIEFS_eos():
     """Tests eos.py by generating random inputs and compares the output of eos.py with a direct application of the equation of state equation"""
 
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
 
     pin.parse_input_file()
 
@@ -130,7 +132,7 @@ def test_FIEFS_eos():
 
 def test_FIEFS_mesh():
     """Tests that array dimensions in mesh.py are correct"""
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
 
     pmesh = FIEFS_Array(pin, np.float64)
@@ -150,7 +152,7 @@ def test_FIEFS_mesh():
 def test_left_bc_enforced():
     """Check left side of domain boundary condition enforcement"""
 
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
 
     pin.parse_input_file()
 
@@ -168,7 +170,7 @@ def test_left_bc_enforced():
 def test_right_bc_enforced():
     """Check right side of domain boundary condition enforcement"""
 
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
 
     pin.parse_input_file()
 
@@ -186,7 +188,7 @@ def test_right_bc_enforced():
 def test_top_bc_enforced():
     """Check top of domain boundary condition enforcement"""
 
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
 
     pin.parse_input_file()
 
@@ -204,7 +206,7 @@ def test_top_bc_enforced():
 def test_bottom_bc_enforced():
     """Check bottom of domain boundary condition enforcement"""
 
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
 
     pin.parse_input_file()
 
@@ -221,7 +223,7 @@ def test_bottom_bc_enforced():
 
 def test_FIEFS_reconstruct():
     """Since reconstruct.py essentially finds a linear interpolation between values at the cell faces, the slope of the line that it finds should have a magnitude of 1 or smaller since our grid is made of squares. This test checks for that."""
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
     pmesh = FIEFS_Array(pin, np.float64)
 
@@ -251,7 +253,7 @@ def test_FIEFS_reconstruct():
 
 def test_FIEFS_1d_variables():
     """Tests that array dimensions in get_primitive_variables_1d() in tools.py are correct."""
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
     pmesh = FIEFS_Array(pin, np.float64)
 
@@ -270,7 +272,7 @@ def test_FIEFS_1d_variables():
 
 def test_FIEFS_2d_variables():
     """Tests that array dimensions in get_primitive_variables_2d() in tools.py are correct."""
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
     pmesh = FIEFS_Array(pin, np.float64)
 
@@ -289,7 +291,7 @@ def test_FIEFS_2d_variables():
 
 def test_FIEFS_1d_fluxes():
     """Tests that array dimensions in get_fluxes_1d() in tools.py are correct."""
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
     pmesh = FIEFS_Array(pin, np.float64)
 
@@ -308,7 +310,7 @@ def test_FIEFS_1d_fluxes():
 def test_FIEFS_2d_fluxes():
     """Tests that array dimensions in get_fluxes_2d() in tools.py are correct."""
 
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
     pmesh = FIEFS_Array(pin, np.float64)
 
@@ -326,57 +328,49 @@ def test_FIEFS_2d_fluxes():
 
 def test_FIEFS_data_file_existence():
     """Tests that correct data files exist."""
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
 
-    pout = FIEFS_Output(f"inputs/kh.in")
+    pout = FIEFS_Output("inputs/kh.in")
     pout.data_preferences(pin)
 
     if "txt" in pout.file_type:
         if "x-velocity" in pout.variables:
-
             assert os.path.isfile("x-velocity.txt")
 
         if "y-velocity" in pout.variables:
-
             assert os.path.isfile("y-velocity.txt")
 
         if "density" in pout.variables:
-
             assert os.path.isfile("density.txt")
 
         if "pressure" in pout.variables:
-
             assert os.path.isfile("pressure.txt")
 
     if "csv" in pout.file_type:
         if "x-velocity" in pout.variables:
-
             assert os.path.isfile("x-velocity.csv")
 
         if "y-velocity" in pout.variables:
-
             assert os.path.isfile("y-velocity.csv")
 
         if "density" in pout.variables:
-
             assert os.path.isfile("density.csv")
 
         if "pressure" in pout.variables:
-
             assert os.path.isfile("pressure.csv")
 
 
 def test_FIEFS_data_saved_to_file():
     """Tests that array dimensions in FIEFS_data_saver.py are correct."""
-    pin = FIEFS_Input(f"inputs/kh.in")
+    pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
 
     pmesh = FIEFS_Array(pin, np.float64)
 
     ProblemGenerator(pin=pin, pmesh=pmesh)
 
-    pout = FIEFS_Output(f"inputs/kh.in")
+    pout = FIEFS_Output("inputs/kh.in")
     pout.data_preferences(pin)
 
     nx1 = pin.value_dict["nx1"]
@@ -384,28 +378,24 @@ def test_FIEFS_data_saved_to_file():
 
     if "txt" in pout.file_type:
         if "x-velocity" in pout.variables:
-
             data = genfromtxt("x-velocity.txt", delimiter=" ")
 
             assert data.ndim == (nx1, nx2)
             assert data.size % nx1 == 0
 
         if "y-velocity" in pout.variables:
-
             data = genfromtxt("y-velocity.txt", delimiter=" ")
 
             assert data.ndim == (nx1, nx2)
             assert data.size % nx1 == 0
 
         if "density" in pout.variables:
-
             data = genfromtxt("density.txt", delimiter=" ")
 
             assert data.ndim == (nx1, nx2)
             assert data.size % nx1 == 0
 
         if "pressure" in pout.variables:
-
             data = genfromtxt("pressure.txt", delimiter=" ")
 
             assert data.ndim == (nx1, nx2)
@@ -413,28 +403,24 @@ def test_FIEFS_data_saved_to_file():
 
     if "csv" in pout.file_type:
         if "x-velocity" in pout.variables:
-
             data = genfromtxt("x-velocity.csv", delimiter=",")
 
             assert data.ndim == (nx1, nx2)
             assert data.size % nx1 == 0
 
         if "y-velocity" in pout.variables:
-
             data = genfromtxt("y-velocity.csv", delimiter=",")
 
             assert data.ndim == (nx1, nx2)
             assert data.size % nx1 == 0
 
         if "density" in pout.variables:
-
             data = genfromtxt("density.csv", delimiter=",")
 
             assert data.ndim == (nx1, nx2)
             assert data.size % nx1 == 0
 
         if "pressure" in pout.variables:
-
             data = genfromtxt("pressure.csv", delimiter=",")
 
             assert data.ndim == (nx1, nx2)
@@ -452,7 +438,7 @@ def test_plotter_directory():
 
     assert not os.path.exists("./output/plots")
 
-    pin = FIEFS_Input(f"inputs/sample.in")
+    pin = FIEFS_Input("inputs/sample.in")
 
     pin.parse_input_file()
 
@@ -469,7 +455,7 @@ def test_plotter_directory():
 def test_plotter_init():
     """Initialize plotter with sample data and verify it loads the correct data in"""
 
-    pin = FIEFS_Input(f"inputs/sample.in")
+    pin = FIEFS_Input("inputs/sample.in")
 
     pin.parse_input_file()
 
@@ -510,7 +496,7 @@ def test_plotter_init():
 def test_plotter_figure():
     """Initialize plotter with sample data and verify it generates a figure"""
 
-    pin = FIEFS_Input(f"inputs/sample.in")
+    pin = FIEFS_Input("inputs/sample.in")
 
     pin.parse_input_file()
 

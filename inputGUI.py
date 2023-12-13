@@ -1,6 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
-from GUI.GUI_tabs import GeometryTab, FlowParametersTab, TimeParametersTab, BoundaryConditionsTab, RunTab
+
+from GUI.GUI_tabs import (
+    BoundaryConditionsTab,
+    FlowParametersTab,
+    GeometryTab,
+    RunTab,
+    TimeParametersTab,
+)
+
 
 class FlowSolverApp(tk.Tk):
     def __init__(self):
@@ -32,18 +40,17 @@ class FlowSolverApp(tk.Tk):
         self.notebook.grid(row=0, column=0, sticky="nsew")
 
         # Configure grid weights to make the frames expand with the window
-        for i in range(6):
+        for _i in range(6):
             self.grid_rowconfigure(0, weight=1)
             self.grid_columnconfigure(0, weight=1)
 
     def on_tab_click(self, event):
         try:
-            selected_tab = self.notebook.index("current")
+            self.notebook.index("current")
         except tk.TclError:
             print("Error: Invalid tab")
+
 
 if __name__ == "__main__":
     app = FlowSolverApp()
     app.mainloop()
-
-

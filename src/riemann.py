@@ -3,8 +3,9 @@ import sys
 sys.path.append("..")
 
 import numpy as np
-from src.tools import get_fluxes_1d
 from numba import njit
+
+from src.tools import get_fluxes_1d
 
 
 @njit()
@@ -46,7 +47,6 @@ def solve_riemann(
 
     for i in range(U_r.shape[1]):
         for j in range(U_r.shape[2]):
-
             rho_l = U_l[0, i, j]
 
             if direction == "x":
@@ -94,11 +94,9 @@ def solve_riemann(
             ustar = 0.5 * (un_l + un_r) + 0.5 * (p_l - p_r) / factor
 
             if Q > 2 and (pstar < p_min or pstar > p_max):
-
                 # use a more accurate Riemann solver for the estimate here
 
                 if pstar < p_min:
-
                     # 2-rarefaction Riemann solver
                     z = (gamma - 1.0) / (2.0 * gamma)
                     p_lr = (p_l / p_r) ** z
@@ -119,7 +117,6 @@ def solve_riemann(
                     )
 
                 else:
-
                     # 2-shock Riemann solver
                     A_r = 2.0 / ((gamma + 1.0) * rho_r)
                     B_r = p_r * (gamma - 1.0) / (gamma + 1.0)
@@ -228,7 +225,6 @@ def solve_riemann(
                 F[:, i, j] = F[:, i, j] + S_l * (U_state[:] - U_l[:, i, j])
 
             else:
-
                 U_state[:] = U_l[:, i, j]
 
                 if direction == "x":

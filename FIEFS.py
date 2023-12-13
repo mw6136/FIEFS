@@ -1,13 +1,15 @@
-from src.input import FIEFS_Input
-from src.data_saver import FIEFS_Output
-from src.pgen import kh
-from src.mesh import FIEFS_Array, get_interm_array
-from src.reconstruct import get_limited_slopes
-from src.tools import calculate_timestep, get_fluxes_2d
-from src.riemann import solve_riemann
-from plotting.plotter import Plotter
-import numpy as np
 import argparse
+
+import numpy as np
+
+from plotting.plotter import Plotter
+from src.data_saver import FIEFS_Output
+from src.input import FIEFS_Input
+from src.mesh import FIEFS_Array, get_interm_array
+from src.pgen import kh
+from src.reconstruct import get_limited_slopes
+from src.riemann import solve_riemann
+from src.tools import calculate_timestep, get_fluxes_2d
 
 parser = argparse.ArgumentParser()
 
@@ -21,7 +23,6 @@ parser.add_argument(
 args = parser.parse_args()
 
 if __name__ == "__main__":
-
     problem_name = args.problem
 
     input_fname = f"inputs/{problem_name}.in"
@@ -34,9 +35,9 @@ if __name__ == "__main__":
     pmesh = FIEFS_Array(pin, np.float64)
 
     # Load the correct problem generator (implement if more probelm types are added)#####################
-    #if problem_name == "kh":
+    # if problem_name == "kh":
     problem_generator = kh.ProblemGenerator
-    #else:
+    # else:
     #    raise ValueError("Please use an implemented problem type")
 
     # Initialize data saving preferences
@@ -95,9 +96,8 @@ if __name__ == "__main__":
 
     # Main simulation loop for MUSCL-Hancock Scheme
     iter = 0
-    print(f"Iteration   |   Time   |   Timestep")
+    print("Iteration   |   Time   |   Timestep")
     while t < tmax:
-
         # Calculate timestep
 
         dt = calculate_timestep(pmesh, cfl, gamma)

@@ -1,7 +1,7 @@
+import os
 import tkinter as tk
 from tkinter import ttk
-import os
-import subprocess
+
 
 class BaseTab(ttk.Frame):
     def __init__(self, notebook, tab_title, variables_and_lines):
@@ -26,7 +26,14 @@ class BaseTab(ttk.Frame):
             error_label = ttk.Label(self, text="", foreground="red")
             error_label.grid(row=index[0], column=2, padx=10, pady=10)
 
-            entry.bind("<FocusOut>", lambda event, line=index[0], char=index[1], ent=entry, err_lbl=error_label: self.value_changed(event, line, char, ent, err_lbl))
+            entry.bind(
+                "<FocusOut>",
+                lambda event, line=index[0], char=index[
+                    1
+                ], ent=entry, err_lbl=error_label: self.value_changed(
+                    event, line, char, ent, err_lbl
+                ),
+            )
 
     def value_changed(self, event, line_number, char_number, entry, error_label):
         new_value = entry.get()
@@ -34,12 +41,12 @@ class BaseTab(ttk.Frame):
         if not self.check_type(new_value, error_label):
             return
         self.write_to_file(event, line_number, char_number, new_value, error_label)
-        
+
     def write_to_file(self, event, line_number, char_number, new_value, error_label):
         file_path = os.path.abspath(os.path.join("inputs", "inputs.IN"))
 
         # Read existing lines from the file
-        with open(file_path, 'r') as file:
+        with open(file_path) as file:
             lines = file.readlines()
 
         # Update the substring starting from the specified index in each line
@@ -47,10 +54,10 @@ class BaseTab(ttk.Frame):
             line = lines[line_number]
             if char_number < len(line):
                 # Delete everything after the specified character index
-                lines[line_number] = line[:char_number] + new_value + '\n'
+                lines[line_number] = line[:char_number] + new_value + "\n"
 
                 # Write the modified lines back to the file
-                with open(file_path, 'w') as file:
+                with open(file_path, "w") as file:
                     file.writelines(lines)
 
     @staticmethod
@@ -61,22 +68,40 @@ class BaseTab(ttk.Frame):
             error_label.config(text="✓", foreground="green", font=("Arial", 16))
             return True
         except ValueError:
-            error_label.config(text=f"\"{value}\" is not a valid float.", foreground="red", font=("Arial", 12))
+            error_label.config(
+                text=f'"{value}" is not a valid float.',
+                foreground="red",
+                font=("Arial", 12),
+            )
             return False
-        
 
 
 class GeometryTab(BaseTab):
     def __init__(self, notebook):
-        variables_and_lines = {"nx1": [3, 8], "nx2": [4, 8], "nvar": [5, 8], "ng": [6, 8],
-                               "x1min": [8, 8], "x1max": [9, 8], "x2min": [10, 8], "x2max": [11, 8]}
+        variables_and_lines = {
+            "nx1": [3, 8],
+            "nx2": [4, 8],
+            "nvar": [5, 8],
+            "ng": [6, 8],
+            "x1min": [8, 8],
+            "x1max": [9, 8],
+            "x2min": [10, 8],
+            "x2max": [11, 8],
+        }
         super().__init__(notebook, "Geometry", variables_and_lines)
 
 
 class FlowParametersTab(BaseTab):
     def __init__(self, notebook):
-        variables_and_lines = {"rho0": [14, 8], "rho1": [15, 8], "p0": [17, 8], "p1": [18, 8],
-                               "u0": [20, 8], "u1": [21, 8], "pert_amp": [22, 8]}
+        variables_and_lines = {
+            "rho0": [14, 8],
+            "rho1": [15, 8],
+            "p0": [17, 8],
+            "p1": [18, 8],
+            "u0": [20, 8],
+            "u1": [21, 8],
+            "pert_amp": [22, 8],
+        }
         super().__init__(notebook, "Flow Parameters", variables_and_lines)
 
 
@@ -88,7 +113,12 @@ class TimeParametersTab(BaseTab):
 
 class BoundaryConditionsTab(BaseTab):
     def __init__(self, notebook):
-        variables_and_lines = {"Left BC": [32, 12], "Right BC": [33, 12], "Top BC": [34, 12], "Bottom BC": [35, 12]}
+        variables_and_lines = {
+            "Left BC": [32, 12],
+            "Right BC": [33, 12],
+            "Top BC": [34, 12],
+            "Bottom BC": [35, 12],
+        }
         super().__init__(notebook, "Boundary Conditions", variables_and_lines)
 
     def check_type(self, value, error_label):
@@ -97,9 +127,14 @@ class BoundaryConditionsTab(BaseTab):
             error_label.config(text="✓", foreground="green", font=("Arial", 16))
             return True
         else:
-            error_label.config(text=f"Entry must be 'transmissive', 'periodic', or 'wall'", foreground="red", font=("Arial", 12))
+            error_label.config(
+                text="Entry must be 'transmissive', 'periodic', or 'wall'",
+                foreground="red",
+                font=("Arial", 12),
+            )
             return False
-        
+
+
 class RunTab(ttk.Frame):
     def __init__(self, notebook):
         super().__init__(notebook)
@@ -114,8 +149,8 @@ class RunTab(ttk.Frame):
 
     def run_command(self):
         header = "Copy the following lines of code into any Linux command prompt:\n"
-        command1 = 'conda create -n environment python=3.9 anaconda'
-        command2 = 'python FIEFS.py -p inputs'
+        command1 = "conda create -n environment python=3.9 anaconda"
+        command2 = "python FIEFS.py -p inputs"
 
         # Clear previous content
         self.output_text.delete("1.0", tk.END)
@@ -127,8 +162,3 @@ class RunTab(ttk.Frame):
 
         # Enable the Text widget for copying
         self.output_text.config(state=tk.NORMAL)
-
-    
-
-
-

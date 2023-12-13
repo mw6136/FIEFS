@@ -4,8 +4,9 @@
 #                                                                 #
 ###################################################################
 
-import numpy as np
 from typing import Union
+
+import numpy as np
 from numba import njit
 
 

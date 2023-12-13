@@ -1,10 +1,12 @@
-import numpy as np
 import sys
 
+import numpy as np
+
 sys.path.append("..")
-from src.mesh import FIEFS_Array
-from src.eos import p_EOS
 from numba import njit
+
+from src.eos import p_EOS
+from src.mesh import FIEFS_Array
 
 
 @njit()
@@ -107,14 +109,12 @@ def get_fluxes_1d(Un: np.ndarray, gamma: float, direction: str) -> np.ndarray:
     rho, u, v, p = get_primitive_variables_1d(Un, gamma)
 
     if direction == "x":
-
         F[0] = rho * u
         F[1] = rho * u**2 + p
         F[2] = rho * u * v
         F[3] = u * (Un[3] + p)
 
     elif direction == "y":
-
         F[0] = rho * v
         F[1] = rho * u * v
         F[2] = rho * v * v + p
@@ -150,14 +150,12 @@ def get_fluxes_2d(Un: np.ndarray, gamma: float, direction: str) -> np.ndarray:
     rho, u, v, p = get_primitive_variables_2d(Un, gamma)
 
     if direction == "x":
-
         F[0, :, :] = rho * u
         F[1, :, :] = rho * u * u + p
         F[2, :, :] = rho * u * v
         F[3, :, :] = u * (Un[3, :, :] + p)
 
     elif direction == "y":
-
         F[0, :, :] = rho * v
         F[1, :, :] = rho * u * v
         F[2, :, :] = rho * v * v + p

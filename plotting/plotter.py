@@ -1,7 +1,8 @@
+import os
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
-import sys
-import os
 
 sys.path.append("..")
 from src.mesh import FIEFS_Array
@@ -56,7 +57,6 @@ class Plotter:
     """
 
     def __init__(self, pmesh: FIEFS_Array):
-
         # Get information from the mesh needed needed for plotting
         self.ng = pmesh.ng
         self.rho = pmesh.Un[0, self.ng : -self.ng, self.ng : -self.ng]
@@ -134,7 +134,6 @@ class Plotter:
             fig, axs = plt.subplots(2, 2, figsize=(10, 10))
 
         if num_of_variables == 1:
-
             var = variables_to_plot[0]
             cmaps = cmaps[0]
             labels = labels[0]
@@ -179,7 +178,6 @@ class Plotter:
         else:
             count = 0
             for ax, var in zip(axs.flat, variables_to_plot):
-
                 ax.set_xlim((self.x1[0], self.x1[-1]))
                 ax.set_ylim((self.x2[0], self.x2[-1]))
 

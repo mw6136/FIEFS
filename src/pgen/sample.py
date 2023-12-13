@@ -8,8 +8,8 @@ import sys
 
 sys.path.append("../..")
 
-import src.mesh
 import src.input
+import src.mesh
 
 
 def sampleProblemGenerator(
@@ -35,7 +35,7 @@ def sampleProblemGenerator(
     """
 
     rho0 = pin.value_dict["rho0"]
-    p0 = pin.value_dict["p0"]
+    pin.value_dict["p0"]
     u0 = pin.value_dict["u0"]
     v0 = pin.value_dict["v0"]
 

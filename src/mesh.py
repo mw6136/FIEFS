@@ -4,8 +4,9 @@
 #                                                                 #
 ###################################################################
 
-import numpy as np
 import sys
+
+import numpy as np
 
 sys.path.append("..")
 from src.input import FIEFS_Input
@@ -53,7 +54,6 @@ class FIEFS_Array:
     """
 
     def __init__(self, pin: FIEFS_Input, dtype: np.dtype) -> None:
-
         self.nvar = pin.value_dict["nvar"]
         self.nx1 = pin.value_dict["nx1"]
         self.nx2 = pin.value_dict["nx2"]

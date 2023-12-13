@@ -4,10 +4,11 @@ import sys
 
 sys.path.append("../..")
 
-import src.mesh
-import src.input
-from src.eos import e_EOS
 import numpy as np
+
+import src.input
+import src.mesh
+from src.eos import e_EOS
 
 
 def ProblemGenerator(pin: src.input.FIEFS_Input, pmesh: src.mesh.FIEFS_Array) -> None:
@@ -31,7 +32,7 @@ def ProblemGenerator(pin: src.input.FIEFS_Input, pmesh: src.mesh.FIEFS_Array) ->
     """
 
     # Get x values and y values
-    x = np.linspace(
+    np.linspace(
         pin.value_dict["x1min"],
         pin.value_dict["x1max"],
         pin.value_dict["nx1"] + 2 * pin.value_dict["ng"],
@@ -49,7 +50,7 @@ def ProblemGenerator(pin: src.input.FIEFS_Input, pmesh: src.mesh.FIEFS_Array) ->
     rho1 = pin.value_dict["rho1"]
 
     p0 = pin.value_dict["p0"]
-    p1 = pin.value_dict["p1"]
+    pin.value_dict["p1"]
 
     u0 = pin.value_dict["u0"]
     u1 = pin.value_dict["u1"]

@@ -25,7 +25,6 @@ class FIEFS_Input:
     """
 
     def __init__(self, input_fname: str):
-
         self.input_fname = input_fname
 
         # Dictionary containing all problem information
@@ -40,14 +39,12 @@ class FIEFS_Input:
         """
 
         with open(self.input_fname) as f:
-
             # Strip all of spcaes surrounding strings of interest
             lines = (line.rstrip() for line in f)
             lines = (line for line in lines if line)
 
             # Loop through lines in the problem file
             for line in lines:
-
                 # Ignore comment lines
                 if not line.startswith("#"):
                     key = line.split("=")[0].strip()
