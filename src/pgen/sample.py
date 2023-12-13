@@ -6,10 +6,10 @@
 
 import sys
 
-sys.path.append("../..")
-
 import src.input
 import src.mesh
+
+sys.path.append("../..")
 
 
 def sampleProblemGenerator(

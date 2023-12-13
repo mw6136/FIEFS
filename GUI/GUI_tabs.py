@@ -69,7 +69,7 @@ class BaseTab(ttk.Frame):
             return True
         except ValueError:
             error_label.config(
-                text=f'"{value}" is not a valid float.',
+                text=f"{value!r} is not a valid float.",
                 foreground="red",
                 font=("Arial", 12),
             )

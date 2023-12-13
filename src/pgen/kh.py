@@ -2,13 +2,13 @@
 
 import sys
 
-sys.path.append("../..")
-
 import numpy as np
 
 import src.input
 import src.mesh
 from src.eos import e_EOS
+
+sys.path.append("../..")
 
 
 def ProblemGenerator(pin: src.input.FIEFS_Input, pmesh: src.mesh.FIEFS_Array) -> None:
@@ -55,7 +55,8 @@ def ProblemGenerator(pin: src.input.FIEFS_Input, pmesh: src.mesh.FIEFS_Array) ->
     u0 = pin.value_dict["u0"]
     u1 = pin.value_dict["u1"]
 
-    # Y velocity needs to be tripped by random velocity perturbations to start instability
+    # Y velocity needs to be tripped by random velocity perturbations to start
+    # instability
     v1 = pin.value_dict["pert_amp"] * np.random.random(size=pmesh.Un[0, :, 0].size)
     v2 = pin.value_dict["pert_amp"] * np.random.random(size=pmesh.Un[0, :, 0].size)
     # print(f"V1 : {v1}")

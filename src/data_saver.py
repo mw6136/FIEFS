@@ -1,8 +1,4 @@
-# Reads data saving preferences; Saves requested variable data using requested file format and print frequency
-
 import sys
-
-sys.path.append("../..")
 
 import h5py
 import numpy as np
@@ -10,6 +6,11 @@ import numpy as np
 import src.input
 import src.mesh
 from src.tools import get_primitive_variables_2d
+
+sys.path.append("../..")
+
+# Reads data saving preferences; Saves requested variable data using
+# requested file format and print frequency
 
 
 class FIEFS_Output:

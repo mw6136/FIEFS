@@ -4,8 +4,9 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
-sys.path.append("..")
 from src.mesh import FIEFS_Array
+
+sys.path.append("..")
 
 
 class Plotter:
@@ -116,7 +117,7 @@ class Plotter:
             [True for check in variables_to_plot if check in self.primitives.keys()]
         ):
             raise Exception(
-                "Please input only valid variables \n Valid variables are: rho, u, v, et"
+                "Please input only valid variables \n Valid variables: rho, u, v, et"
             )
 
         # Check if output directory exists

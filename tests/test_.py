@@ -2,9 +2,6 @@ import os
 import sys
 
 import numpy as np
-
-sys.path.append("..")
-
 from numpy import genfromtxt
 
 from plotting.plotter import Plotter
@@ -21,6 +18,8 @@ from src.tools import (
     get_primitive_variables_1d,
     get_primitive_variables_2d,
 )
+
+sys.path.append("..")
 
 
 def test_FIEFS_input():
@@ -88,7 +87,8 @@ def test_FIEFS_pgen():
 
 
 def test_FIEFS_eos():
-    """Tests eos.py by generating random inputs and compares the output of eos.py with a direct application of the equation of state equation"""
+    """Tests eos.py by generating random inputs and compares the output of eos.py
+    with a direct application of the equation of state equation"""
 
     pin = FIEFS_Input("inputs/kh.in")
 
@@ -222,7 +222,10 @@ def test_bottom_bc_enforced():
 
 
 def test_FIEFS_reconstruct():
-    """Since reconstruct.py essentially finds a linear interpolation between values at the cell faces, the slope of the line that it finds should have a magnitude of 1 or smaller since our grid is made of squares. This test checks for that."""
+    """Since reconstruct.py essentially finds a linear interpolation
+    between values at the cell faces, the slope of the line that it
+    finds should have a magnitude of 1 or smaller since our grid is
+    made of squares. This test checks for that."""
     pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
     pmesh = FIEFS_Array(pin, np.float64)
@@ -252,7 +255,8 @@ def test_FIEFS_reconstruct():
 
 
 def test_FIEFS_1d_variables():
-    """Tests that array dimensions in get_primitive_variables_1d() in tools.py are correct."""
+    """Tests that array dimensions in get_primitive_variables_1d() in
+    tools.py are correct."""
     pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
     pmesh = FIEFS_Array(pin, np.float64)
@@ -271,7 +275,8 @@ def test_FIEFS_1d_variables():
 
 
 def test_FIEFS_2d_variables():
-    """Tests that array dimensions in get_primitive_variables_2d() in tools.py are correct."""
+    """Tests that array dimensions in get_primitive_variables_2d()
+    in tools.py are correct."""
     pin = FIEFS_Input("inputs/kh.in")
     pin.parse_input_file()
     pmesh = FIEFS_Array(pin, np.float64)

@@ -34,7 +34,8 @@ if __name__ == "__main__":
     # Initialize empty problem mesh
     pmesh = FIEFS_Array(pin, np.float64)
 
-    # Load the correct problem generator (implement if more probelm types are added)#####################
+    # Load the correct problem generator (implement if more problem types
+    # are added)#####################
     # if problem_name == "kh":
     problem_generator = kh.ProblemGenerator
     # else:
