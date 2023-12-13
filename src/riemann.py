@@ -3,7 +3,8 @@ import sys
 import numpy as np
 from numba import njit
 
-from ..src.tools import get_fluxes_1d
+sys.path.append("..")
+from src.tools import get_fluxes_1d
 
 
 @njit()

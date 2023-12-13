@@ -1,17 +1,20 @@
 import os
+import sys
+
+sys.path.append("..")
 
 import numpy as np
 from numpy import genfromtxt
 
-from ..plotting.plotter import Plotter
-from ..src.data_saver import FIEFS_Output
-from ..src.eos import e_EOS, p_EOS
-from ..src.input import FIEFS_Input
-from ..src.mesh import FIEFS_Array, get_interm_array
-from ..src.pgen.kh import ProblemGenerator
-from ..src.pgen.sample import sampleProblemGenerator
-from ..src.reconstruct import get_limited_slopes
-from ..src.tools import (
+from plotting.plotter import Plotter
+from src.data_saver import FIEFS_Output
+from src.eos import e_EOS, p_EOS
+from src.input import FIEFS_Input
+from src.mesh import FIEFS_Array, get_interm_array
+from src.pgen.kh import ProblemGenerator
+from src.pgen.sample import sampleProblemGenerator
+from src.reconstruct import get_limited_slopes
+from src.tools import (
     get_fluxes_1d,
     get_fluxes_2d,
     get_primitive_variables_1d,

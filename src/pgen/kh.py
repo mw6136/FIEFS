@@ -2,13 +2,15 @@
 
 import sys
 
+sys.path.append("../..")
+
 import numpy as np
 
 import src.input
 import src.mesh
 from src.eos import e_EOS
 
-sys.path.append("../..")
+print("hi")
 
 
 def ProblemGenerator(pin: src.input.FIEFS_Input, pmesh: src.mesh.FIEFS_Array) -> None:

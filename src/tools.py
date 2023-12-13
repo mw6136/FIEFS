@@ -1,11 +1,11 @@
-import sys
+import sys; sys.path.append("..")
 
 import numpy as np
+
 from numba import njit
 
-from ..src.eos import p_EOS
-from ..src.mesh import FIEFS_Array
-
+from src.eos import p_EOS
+from src.mesh import FIEFS_Array
 
 
 @njit()

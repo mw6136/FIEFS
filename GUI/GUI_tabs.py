@@ -1,6 +1,9 @@
 import os
+import sys
 import tkinter as tk
 from tkinter import ttk
+
+sys.path.append("..")
 
 
 class BaseTab(ttk.Frame):
