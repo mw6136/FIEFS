@@ -1,9 +1,10 @@
 import os
-
+import sys; sys.path.append("..")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ..src.mesh import FIEFS_Array
+
+from src.mesh import FIEFS_Array
 
 
 class Plotter:

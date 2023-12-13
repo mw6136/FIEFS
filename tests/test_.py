@@ -1,12 +1,12 @@
 import os
 import sys
 
-sys.path.append("..")
+#sys.path.append("..")
 
 import numpy as np
 from numpy import genfromtxt
 
-from plotting.plotter import plotter
+
 from src.data_saver import FIEFS_Output
 from src.eos import e_EOS, p_EOS
 from src.input import FIEFS_Input
@@ -21,6 +21,7 @@ from src.tools import (
     get_primitive_variables_2d,
 )
 
+from plotting.plotter import plotter
 
 def test_FIEFS_input():
     """Test that the parameter input parsing works with kh"""
