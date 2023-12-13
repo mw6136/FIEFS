@@ -6,7 +6,7 @@ sys.path.append("..")
 import numpy as np
 from numpy import genfromtxt
 
-from plotting.plotter import Plotter
+from plotting.plotter import plotter
 from src.data_saver import FIEFS_Output
 from src.eos import e_EOS, p_EOS
 from src.input import FIEFS_Input
