@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from src.mesh import FIEFS_Array
-
+from typing import List
 
 class Plotter:
     """Creates plots for the desired variables
