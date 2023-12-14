@@ -22,7 +22,18 @@ from src.tools import (
     get_primitive_variables_1d,
     get_primitive_variables_2d,
 )
-
+from GUI.GUI_tabs import (
+    BaseTab
+    BoundaryConditionsTab,
+    FlowParametersTab,
+    GeometryTab,
+    RunTab,
+    TimeParametersTab,
+)
+def test_Base_tab():
+    base_tab = BaseTab(None, "", {})
+    assert base_tab.check_type(30, None)
+    assert base_tab.check_type("hi", None)
 
 def test_FIEFS_input():
     """Test that the parameter input parsing works with kh"""

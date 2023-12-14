@@ -3,9 +3,6 @@ import sys
 import tkinter as tk
 from tkinter import ttk
 
-sys.path.append("..")
-
-
 class BaseTab(ttk.Frame):
     def __init__(self, notebook, tab_title, variables_and_lines):
         super().__init__(notebook)
@@ -63,8 +60,7 @@ class BaseTab(ttk.Frame):
                 with open(file_path, "w") as file:
                     file.writelines(lines)
 
-    @staticmethod
-    def check_type(value, error_label):
+    def check_type(self, value, error_label):
         value_type = float
         try:
             value_type(value)
