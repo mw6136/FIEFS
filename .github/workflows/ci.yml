@@ -5,6 +5,7 @@ on:
       - main
       - GUI
       - tests
+      - GUI_tests
 
 jobs:
   format:
