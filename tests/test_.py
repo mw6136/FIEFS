@@ -31,11 +31,17 @@ from GUI.GUI_tabs import (
     TimeParametersTab,
 )
 def test_Base_tab():
-    #base_tab = BaseTab(None, "", {})
-    assert 1==1
-    #assert 1==2
     assert BaseTab.check_type(30)
-    #assert base_tab.check_type("hi", None)
+    assert not BaseTab.check_type("string")
+
+def test_BC_tab():
+    assert BoundaryConditionsTab.check_type("wall")
+    assert BoundaryConditionsTab.check_type("WALL")
+    assert BoundaryConditionsTab.check_type("trAnSmiSsIVe")
+    assert BoundaryConditionsTab.check_type("periodic")
+    assert not BaseTab.check_type("string")
+    assert not BaseTab.check_type(10)
+
 
 def test_FIEFS_input():
     """Test that the parameter input parsing works with kh"""
