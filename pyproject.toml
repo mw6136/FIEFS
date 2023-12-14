@@ -51,3 +51,6 @@ select = [
   "RUF",         # Ruff-specific
   "UP",          # pyupgrade
 ]
+
+[tool.ruff.ignore]
+"I202" = "Module level import not at top of file"
