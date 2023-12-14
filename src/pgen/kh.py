@@ -1,6 +1,7 @@
 # Initial conditions for Kelvin-Helmholtz
 
 import sys
+import os
 
 current_script_path = os.path.abspath(__file__)
 parent_directory = os.path.dirname(os.path.dirname(os.path.dirname(current_script_path)))
