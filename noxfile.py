@@ -1,5 +1,5 @@
 import nox
-import os
+
 
 # Define the versions you want to test against
 @nox.session(python="3.10")
@@ -10,10 +10,12 @@ def tests(session: nox.Session) -> None:
     session.install(".[test]")
     session.run("pytest")
 
+
 @nox.session(python="3.11")
 def lint(session):
     session.install("flake8")
     session.run("flake8", "src/")
+
 
 @nox.session(python="3.11")
 def docs(session: nox.Session) -> None:
@@ -23,6 +25,7 @@ def docs(session: nox.Session) -> None:
     session.install(".[docs]")
     session.chdir("docs")
     session.run("sphinx-build", "-M", "html", ".", "_build")
+
 
 @nox.session(python="3.11")
 def serve(session: nox.Session) -> None:

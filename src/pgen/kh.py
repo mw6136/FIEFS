@@ -1,10 +1,12 @@
 # Initial conditions for Kelvin-Helmholtz
 
-import sys
 import os
+import sys
 
 current_script_path = os.path.abspath(__file__)
-parent_directory = os.path.dirname(os.path.dirname(os.path.dirname(current_script_path)))
+parent_directory = os.path.dirname(
+    os.path.dirname(os.path.dirname(current_script_path))
+)
 sys.path.append(parent_directory)
 
 import numpy as np
@@ -13,8 +15,8 @@ import src.input
 import src.mesh
 from src.eos import e_EOS
 
-
 print("hi")
+
 
 def ProblemGenerator(pin: src.input.FIEFS_Input, pmesh: src.mesh.FIEFS_Array) -> None:
     """Generates the problem in by inputting the information to the problem mesh

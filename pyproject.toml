@@ -44,13 +44,5 @@ pythonpath = [
 ]
 
 [tool.ruff]
-select = [
-  "E", "F", "W", # flake8
-  "B",           # flake8-bugbear
-  "I",           # isort
-  "RUF",         # Ruff-specific
-  "UP",          # pyupgrade
-]
-
-[tool.ruff.ignore]
-"I202" = "Module level import not at top of file"
+select = ["F", "W", "I", "RUF", "UP"]
+fix = true

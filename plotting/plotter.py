@@ -5,11 +5,13 @@ current_script_path = os.path.abspath(__file__)
 parent_directory = os.path.dirname(os.path.dirname(current_script_path))
 sys.path.append(parent_directory)
 
+from typing import List
+
 import matplotlib.pyplot as plt
 import numpy as np
 
 from src.mesh import FIEFS_Array
-from typing import List
+
 
 class Plotter:
     """Creates plots for the desired variables
