@@ -38,8 +38,14 @@ class BaseTab(ttk.Frame):
     def value_changed(self, event, line_number, char_number, entry, error_label):
         new_value = entry.get()
 
-        if not self.check_type(new_value, error_label):
+        if not self.check_type(new_value):
+            error_label.config(
+                text=f"{new_value!r} is not a valid float.",
+                foreground="red",
+                font=("Arial", 12),
+            )
             return
+        error_label.config(text="✓", foreground="green", font=("Arial", 16))
         self.write_to_file(event, line_number, char_number, new_value, error_label)
 
     def write_to_file(self, event, line_number, char_number, new_value, error_label):
@@ -60,18 +66,12 @@ class BaseTab(ttk.Frame):
                 with open(file_path, "w") as file:
                     file.writelines(lines)
     @staticmethod
-    def check_type(value, error_label):
+    def check_type(value):
         value_type = float
         try:
             value_type(value)
-            error_label.config(text="✓", foreground="green", font=("Arial", 16))
             return True
         except ValueError:
-            error_label.config(
-                text=f"{value!r} is not a valid float.",
-                foreground="red",
-                font=("Arial", 12),
-            )
             return False
 
 

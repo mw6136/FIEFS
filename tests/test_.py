@@ -34,7 +34,7 @@ def test_Base_tab():
     #base_tab = BaseTab(None, "", {})
     assert 1==1
     #assert 1==2
-    assert BaseTab.check_type(30, None)
+    assert BaseTab.check_type(30)
     #assert base_tab.check_type("hi", None)
 
 def test_FIEFS_input():
