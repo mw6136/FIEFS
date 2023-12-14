@@ -1,5 +1,5 @@
 # Initial conditions for Kelvin-Helmholtz
-import os
+
 import sys
 
 current_script_path = os.path.abspath(__file__)
@@ -12,8 +12,8 @@ import src.input
 import src.mesh
 from src.eos import e_EOS
 
-print("hi")
 
+print("hi")
 
 def ProblemGenerator(pin: src.input.FIEFS_Input, pmesh: src.mesh.FIEFS_Array) -> None:
     """Generates the problem in by inputting the information to the problem mesh
@@ -30,7 +30,7 @@ def ProblemGenerator(pin: src.input.FIEFS_Input, pmesh: src.mesh.FIEFS_Array) ->
         object
 
     pmesh : FIEFS_Array
-        FIEFS_Array mesh which contains all of the current mesh information
+        FIEFS_Array mesh which contains all of the cuorrent mesh information
         and the conserved variables Un
 
     """
