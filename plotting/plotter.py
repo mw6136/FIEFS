@@ -83,9 +83,9 @@ class Plotter:
 
     def create_plot(
         self,
-        variables_to_plot: list[str],
-        labels: list[str],
-        cmaps: list[str],
+        variables_to_plot: List[str],
+        labels: List[str],
+        cmaps: List[str],
         stability_name: str,
         style_mode: bool,
         iter: int,
