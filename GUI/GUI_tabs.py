@@ -2,6 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk
 
+
 class BaseTab(ttk.Frame):
     def __init__(self, notebook, tab_title, variables_and_lines):
         super().__init__(notebook)
@@ -64,6 +65,7 @@ class BaseTab(ttk.Frame):
                 # Write the modified lines back to the file
                 with open(file_path, "w") as file:
                     file.writelines(lines)
+
     @staticmethod
     def check_type(value):
         value_type = float
@@ -124,6 +126,7 @@ class FlowParametersTab(BaseTab):
             return True
         except ValueError:
             return False
+
 
 class TimeParametersTab(BaseTab):
     def __init__(self, notebook):
