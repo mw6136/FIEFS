@@ -8,6 +8,11 @@ sys.path.append(parent_directory)
 import numpy as np
 from numpy import genfromtxt
 
+from GUI.GUI_tabs import (
+    BaseTab,
+    BoundaryConditionsTab,
+    FlowParametersTab,
+)
 from plotting.plotter import Plotter
 from src.data_saver import FIEFS_Output
 from src.eos import e_EOS, p_EOS
@@ -22,17 +27,12 @@ from src.tools import (
     get_primitive_variables_1d,
     get_primitive_variables_2d,
 )
-from GUI.GUI_tabs import (
-    BaseTab,
-    BoundaryConditionsTab,
-    FlowParametersTab,
-    GeometryTab,
-    TimeParametersTab,
-)
+
 
 def test_BaseTab():
     assert BaseTab.check_type("30")
     assert not BaseTab.check_type("string")
+
 
 def test_BoundaryConditionsTab():
     assert BoundaryConditionsTab.check_type("wall")
@@ -42,6 +42,7 @@ def test_BoundaryConditionsTab():
     assert not BoundaryConditionsTab.check_type("string")
     assert not BoundaryConditionsTab.check_type("10")
 
+
 def test_FlowParametersTab():
     assert FlowParametersTab.check_type("15")
     assert FlowParametersTab.check_type("30")
@@ -50,7 +51,6 @@ def test_FlowParametersTab():
     assert not FlowParametersTab.check_type("string")
 
 
-    
 def test_FIEFS_input():
     """Test that the parameter input parsing works with kh"""
 
