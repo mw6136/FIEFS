@@ -23,7 +23,7 @@ from src.tools import (
     get_primitive_variables_2d,
 )
 from GUI.GUI_tabs import (
-    BaseTab
+    BaseTab,
     BoundaryConditionsTab,
     FlowParametersTab,
     GeometryTab,
