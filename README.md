@@ -18,6 +18,8 @@ In order to run, activate the conda environment contained in `workflow/environme
 
 Where `problem_name` is the name of the problem being run, corresponding to the name of the input file and problem generator file. For example, to run the Kelvin-Helmholtz instability problem, execute the command `python FIEFS.py -p kh`.
 
+To generate a new input file (which uses the Kelvin-Helmholtz instability as the default), run the inputGUI.py script, which will launch a GUI where the user can input whatever parameters they would like to change. The final tab (the RUN tab) displays which commands to enter to run the input file that was just created.
+
 The outputs from the simulation for plotting can be found in `outputs/plots`.
 
 Documentation for specifics about each of the functions present in the code can be found here: `Future Github-pages`
