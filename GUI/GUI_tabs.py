@@ -102,6 +102,25 @@ class FlowParametersTab(BaseTab):
         }
         super().__init__(notebook, "Flow Parameters", variables_and_lines)
 
+    def value_changed(self, event, line_number, char_number, entry, error_label):
+        new_value = entry.get()
+        if not self.check_type(new_value):
+            error_label.config(
+                text="Entry is not valid. (Must be positive real number)",
+                foreground="red",
+                font=("Arial", 12),
+            )
+            return
+        error_label.config(text="✓", foreground="green", font=("Arial", 16))
+        self.write_to_file(event, line_number, char_number, new_value, error_label)
+
+    @staticmethod
+    def check_type(value):
+        valid_values = {"transmissive", "periodic", "wall"}
+        if value.lower() in valid_values:
+            return True
+        else:
+            return False
 
 class TimeParametersTab(BaseTab):
     def __init__(self, notebook):
@@ -119,18 +138,24 @@ class BoundaryConditionsTab(BaseTab):
         }
         super().__init__(notebook, "Boundary Conditions", variables_and_lines)
 
-    @staticmethod
-    def check_type(value, error_label):
-        valid_values = {"transmissive", "periodic", "wall"}
-        if value.lower() in valid_values:
-            error_label.config(text="✓", foreground="green", font=("Arial", 16))
-            return True
-        else:
+    def value_changed(self, event, line_number, char_number, entry, error_label):
+        new_value = entry.get()
+        if not self.check_type(new_value):
             error_label.config(
                 text="Entry must be 'transmissive', 'periodic', or 'wall'",
                 foreground="red",
                 font=("Arial", 12),
             )
+            return
+        error_label.config(text="✓", foreground="green", font=("Arial", 16))
+        self.write_to_file(event, line_number, char_number, new_value, error_label)
+
+    @staticmethod
+    def check_type(value):
+        valid_values = {"transmissive", "periodic", "wall"}
+        if value.lower() in valid_values:
+            return True
+        else:
             return False
 
 

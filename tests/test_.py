@@ -27,14 +27,14 @@ from GUI.GUI_tabs import (
     BoundaryConditionsTab,
     FlowParametersTab,
     GeometryTab,
-    RunTab,
     TimeParametersTab,
 )
-def test_Base_tab():
+
+def test_BaseTab():
     assert BaseTab.check_type(30)
     assert not BaseTab.check_type("string")
 
-def test_BC_tab():
+def test_BoundaryConditionsTab():
     assert BoundaryConditionsTab.check_type("wall")
     assert BoundaryConditionsTab.check_type("WALL")
     assert BoundaryConditionsTab.check_type("trAnSmiSsIVe")
@@ -42,7 +42,15 @@ def test_BC_tab():
     assert not BaseTab.check_type("string")
     assert not BaseTab.check_type(10)
 
+def test_FlowParametersTab():
+    assert FlowParametersTab.check_type(15)
+    assert FlowParametersTab.check_type(30)
+    assert FlowParametersTab.check_type(0.05)
+    assert not FlowParametersTab.check_type(-15)
+    assert not FlowParametersTab.check_type("string")
 
+
+    
 def test_FIEFS_input():
     """Test that the parameter input parsing works with kh"""
 
