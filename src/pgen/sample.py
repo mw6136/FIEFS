@@ -3,7 +3,7 @@
 #         Contains sample problem generator for sample.in         #
 #                                                                 #
 ###################################################################
-
+import os
 import sys
 
 current_script_path = os.path.abspath(__file__)
