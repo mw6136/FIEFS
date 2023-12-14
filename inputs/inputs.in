@@ -3,10 +3,10 @@
 # Grid information
 nx1   = 0.0
 nx2   = 256
-nvar  = 10
-ng    = 12
+nvar  = 0
+ng    = 0
 
-x1min = 0.1
+x1min = 0
 x1max = -0.1
 x2min = -0.5
 x2max = 0.5
@@ -31,7 +31,7 @@ gamma = 1.4
 
 # Boundary conditions
 left_bc   = wall
-right_bc  = periodic
+right_bc  = wall
 top_bc    = wall
 bottom_bc = transmissive
 

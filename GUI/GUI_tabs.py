@@ -59,8 +59,8 @@ class BaseTab(ttk.Frame):
                 # Write the modified lines back to the file
                 with open(file_path, "w") as file:
                     file.writelines(lines)
-
-    def check_type(self, value, error_label):
+    @staticmethod
+    def check_type(value, error_label):
         value_type = float
         try:
             value_type(value)
@@ -120,7 +120,8 @@ class BoundaryConditionsTab(BaseTab):
         }
         super().__init__(notebook, "Boundary Conditions", variables_and_lines)
 
-    def check_type(self, value, error_label):
+    @staticmethod
+    def check_type(value, error_label):
         valid_values = {"transmissive", "periodic", "wall"}
         if value.lower() in valid_values:
             error_label.config(text="✓", foreground="green", font=("Arial", 16))
