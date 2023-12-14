@@ -2,12 +2,11 @@ import nox
 
 
 # Define the versions you want to test against
-@nox.session(python=["3.8", "3.9", "3.10", "3.11", "3.12"])
-def tests(session: nox.Session) -> None:
-    """
-    Run the unit and regular tests.
-    """
-    session.install(".[test]")
+@nox.session
+def tests(session):
+    session.install("-e", ".[tests]")
+    session.install("pytest", "uncertainties")
+
     session.run("pytest")
 
 
