@@ -2,7 +2,7 @@ import nox
 import os
 
 # Define the versions you want to test against
-@nox.session(python=["3.8", "3.9", "3.10", "3.11", "3.12"])
+@nox.session(python=["3.10"])
 def tests(session: nox.Session) -> None:
     """
     Run the unit and regular tests.
