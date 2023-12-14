@@ -116,10 +116,13 @@ class FlowParametersTab(BaseTab):
 
     @staticmethod
     def check_type(value):
-        valid_values = {"transmissive", "periodic", "wall"}
-        if value.lower() in valid_values:
+        value_type = float
+        try:
+            value_type(value)
+            if value_type(value) <= 0:
+                return False
             return True
-        else:
+        except ValueError:
             return False
 
 class TimeParametersTab(BaseTab):
