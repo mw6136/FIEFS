@@ -29,7 +29,7 @@ To generate a new input file (which uses the Kelvin-Helmholtz instability as the
 
 The outputs from the simulation for plotting can be found in `outputs/plots`.
 
-Documentation for specifics about each of the functions present in the code can be found in 'class_documentation.pdf'
+Documentation for specifics about each of the functions present in the code can be found in ```misc/class_documentation.pdf```
 
 ## Implementing new problems
 
