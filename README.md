@@ -48,6 +48,6 @@ for the new file to be recognized and the correct problem generator to be used. 
 
 The solver implemented in `FIEFS` is a MUSCL-Hancock scheme as described in [1]. Specifically, it is a 2-dimensional finite volume solver for the inviscid Euler equations, with a minmod slope limiter and and HLLC Riemann solver (also explained extensively in [1]). This work was adapted from the work of Boerchers et al in [2].
 
-[1] Toro, E. F. (2011). Riemann solvers and Numerical Methods for fluid dynamics: A practical introduction. Springer.
+[1] Toro, E. F. (2011). *Riemann solvers and Numerical Methods for fluid dynamics: A practical introduction*. Springer.
 
 [2] Boerchers, J., Rzepka, S., and Fush, T. (2022). PSYCHo-I - Python Simulations Yielding Hydrodynamic Instabilities. Github repository: `https://github.com/johnboerchers/psycho-i.`
